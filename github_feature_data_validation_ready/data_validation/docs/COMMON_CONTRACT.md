@@ -33,7 +33,12 @@
 **핵심 API:**
 
 ```python
-from validation import validate_conditions
+from data_validation.validation import (
+    validate_conditions,
+    validate_place,
+    filter_places,
+    validate_course
+)
 checked = validate_conditions(ai_output)
 # checked = {"ok": bool, "errors": list[str], "normalized": dict | None}
 ```
@@ -43,7 +48,9 @@ checked = validate_conditions(ai_output)
 가능하면 아래 함수로 표준화합니다. 잇플 실제 응답의 배열 wrapper는 ③이 확인하여 각 row를 꺼내야 합니다.
 
 ```python
-from eatpl_adapter import normalize_eatpl_merchant
+from data_validation.eatpl_adapter import (
+    normalize_eatpl_merchant
+)
 place = normalize_eatpl_merchant(one_merchant_dict, region_hint="강남")
 ```
 
