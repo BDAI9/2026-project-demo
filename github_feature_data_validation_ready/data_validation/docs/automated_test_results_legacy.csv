@@ -1,0 +1,7 @@
+﻿test,status,error,executed_at
+test_validation.TestRecommendation.test_A_base_conditions,PASS,,2026-11-11T12:07:34
+test_validation.TestRecommendation.test_B_eight_people,PASS,,2026-11-11T12:07:34
+test_validation.TestRecommendation.test_C_low_budget,PASS,,2026-11-11T12:07:34
+__main__.TestDataQuality.test_D_invalid_capacity,PASS,,2026-11-11T12:07:34
+__main__.TestDataQuality.test_E_invalid_latitude,PASS,,2026-11-11T12:07:34
+__main__.TestDataQuality.test_F_missing_menu_evidence,PASS,,2026-11-11T12:07:34

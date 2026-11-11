@@ -1,0 +1,220 @@
+[
+  {
+    "test_id": "T01",
+    "user_input": "강남에서 4명, 한식, 매운 음식과 해산물 제외, 인당 3만원 이하",
+    "expected_conditions": {
+      "mode": "group",
+      "region": "강남",
+      "party_size": 4,
+      "preferred_cuisines": [
+        "한식"
+      ],
+      "excluded_terms": [
+        "매운",
+        "해산물"
+      ],
+      "required_tags": [],
+      "category_order": [],
+      "max_budget_per_person": 30000,
+      "max_leg_straight_km": 1.5
+    },
+    "expected_validation_ok": true
+  },
+  {
+    "test_id": "T02",
+    "user_input": "강남에서 8명, 인당 2만원 이하",
+    "expected_conditions": {
+      "mode": "group",
+      "region": "강남",
+      "party_size": 8,
+      "preferred_cuisines": [],
+      "excluded_terms": [],
+      "required_tags": [],
+      "category_order": [],
+      "max_budget_per_person": 20000,
+      "max_leg_straight_km": 1.5
+    },
+    "expected_validation_ok": true
+  },
+  {
+    "test_id": "T03",
+    "user_input": "강남에서 2명, 해산물 제외",
+    "expected_conditions": {
+      "mode": "group",
+      "region": "강남",
+      "party_size": 2,
+      "preferred_cuisines": [],
+      "excluded_terms": [
+        "해산물"
+      ],
+      "required_tags": [],
+      "category_order": [],
+      "max_budget_per_person": null,
+      "max_leg_straight_km": 1.5
+    },
+    "expected_validation_ok": true
+  },
+  {
+    "test_id": "T04",
+    "user_input": "홍대에서 3명, 이탈리안 음식",
+    "expected_conditions": {
+      "mode": "group",
+      "region": "홍대",
+      "party_size": 3,
+      "preferred_cuisines": [
+        "이탈리안"
+      ],
+      "excluded_terms": [],
+      "required_tags": [],
+      "category_order": [],
+      "max_budget_per_person": null,
+      "max_leg_straight_km": 1.5
+    },
+    "expected_validation_ok": true
+  },
+  {
+    "test_id": "T05",
+    "user_input": "강남에서 6명, 조용한 식당",
+    "expected_conditions": {
+      "mode": "group",
+      "region": "강남",
+      "party_size": 6,
+      "preferred_cuisines": [],
+      "excluded_terms": [],
+      "required_tags": [
+        "조용한"
+      ],
+      "category_order": [],
+      "max_budget_per_person": null,
+      "max_leg_straight_km": 1.5
+    },
+    "expected_validation_ok": true
+  },
+  {
+    "test_id": "T06",
+    "user_input": "강남에서 20명 회식",
+    "expected_conditions": {
+      "mode": "group",
+      "region": "강남",
+      "party_size": 20,
+      "preferred_cuisines": [],
+      "excluded_terms": [],
+      "required_tags": [],
+      "category_order": [],
+      "max_budget_per_person": null,
+      "max_leg_straight_km": 1.5
+    },
+    "expected_validation_ok": true
+  },
+  {
+    "test_id": "T07",
+    "user_input": "홍대에서 둘이 카페 갔다가 식당",
+    "expected_conditions": {
+      "mode": "date",
+      "region": "홍대",
+      "party_size": 2,
+      "preferred_cuisines": [],
+      "excluded_terms": [],
+      "required_tags": [],
+      "category_order": [
+        "cafe",
+        "restaurant"
+      ],
+      "max_budget_per_person": null,
+      "max_leg_straight_km": 1.5
+    },
+    "expected_validation_ok": true
+  },
+  {
+    "test_id": "T08",
+    "user_input": "홍대에서 둘이 카페, 식당, 술집 순서로 데이트",
+    "expected_conditions": {
+      "mode": "date",
+      "region": "홍대",
+      "party_size": 2,
+      "preferred_cuisines": [],
+      "excluded_terms": [],
+      "required_tags": [],
+      "category_order": [
+        "cafe",
+        "restaurant",
+        "bar"
+      ],
+      "max_budget_per_person": null,
+      "max_leg_straight_km": 1.5
+    },
+    "expected_validation_ok": true
+  },
+  {
+    "test_id": "T09",
+    "user_input": "강남에서 둘이 식사하고 카페, 인당 4만원 이하",
+    "expected_conditions": {
+      "mode": "date",
+      "region": "강남",
+      "party_size": 2,
+      "preferred_cuisines": [],
+      "excluded_terms": [],
+      "required_tags": [],
+      "category_order": [
+        "restaurant",
+        "cafe"
+      ],
+      "max_budget_per_person": 40000,
+      "max_leg_straight_km": 1.5
+    },
+    "expected_validation_ok": true
+  },
+  {
+    "test_id": "T10",
+    "user_input": "홍대에서 둘이 카페 다음 식당, 장소 간 직선거리 500m 이하",
+    "expected_conditions": {
+      "mode": "date",
+      "region": "홍대",
+      "party_size": 2,
+      "preferred_cuisines": [],
+      "excluded_terms": [],
+      "required_tags": [],
+      "category_order": [
+        "cafe",
+        "restaurant"
+      ],
+      "max_budget_per_person": null,
+      "max_leg_straight_km": 0.5
+    },
+    "expected_validation_ok": true
+  },
+  {
+    "test_id": "T11",
+    "user_input": "강남에서 0명 모임",
+    "expected_conditions": {
+      "mode": "group",
+      "region": "강남",
+      "party_size": 0,
+      "preferred_cuisines": [],
+      "excluded_terms": [],
+      "required_tags": [],
+      "category_order": [],
+      "max_budget_per_person": null,
+      "max_leg_straight_km": 1.5
+    },
+    "expected_validation_ok": false
+  },
+  {
+    "test_id": "T12",
+    "user_input": "홍대에서 둘이 카페 한 곳만 가는 데이트",
+    "expected_conditions": {
+      "mode": "date",
+      "region": "홍대",
+      "party_size": 2,
+      "preferred_cuisines": [],
+      "excluded_terms": [],
+      "required_tags": [],
+      "category_order": [
+        "cafe"
+      ],
+      "max_budget_per_person": null,
+      "max_leg_straight_km": 1.5
+    },
+    "expected_validation_ok": false
+  }
+]
