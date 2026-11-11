@@ -48,3 +48,25 @@ git switch --track origin/feature/frontend
 ## 실행 환경
 
 기술 스택과 실행 방법은 팀 합의 후 추가합니다. API 키나 개인 비밀값은 저장소에 올리지 않습니다.
+
+### 잇플·코스 담당 모듈 (개발 중)
+
+Python 3.10 이상과 표준 라이브러리만으로 저장소 루트에서 다음 명령을 실행합니다. Windows, macOS, Linux에서 명령은 같습니다 (`python`이 없는 환경에서는 `python3` 사용).
+
+```bash
+python -m backend.server
+python -m backend.demo
+python -m unittest discover -s tests -v
+```
+
+서버를 실행한 뒤 브라우저에서 `http://127.0.0.1:8000/`을 엽니다. 화면에서 **샘플 데이터**와 가상 지역을 선택하면 데이트 코스를 볼 수 있습니다. `python -m backend.demo`는 별도 콘솔 데모입니다. 이 화면은 담당 기능을 시험하기 위한 로컬 데모이며 공유 방과 팀의 프론트엔드는 아직 연결되지 않았습니다.
+
+현재 앱의 실제 잇플 검색은 **직접 제휴 API** 경로이며 기관명 발급과 서버 IP 등록이 필요합니다. 서버를 실행할 셸에서 기관명을 환경변수 `EATPL_INSTITUTION`으로 설정하세요. `EATPL_ENV`는 생략하면 개발 서버(`dev`)이며, 운영 허가 후에만 `prod`를 사용합니다. `EATPL_TRACE_DB`는 거래추적번호 순번을 보관할 SQLite 파일의 경로로, 생략하면 실행 디렉터리의 `eatpl_traces.sqlite3`를 사용합니다. 같은 기관의 모든 호출 인스턴스가 동일한 순번 저장소를 공유해야 중복을 피할 수 있으므로, 이 로컬 데모를 여러 서버에 그대로 배포하면 안 됩니다. 인증 정보는 소스나 채팅에 적지 마세요. 직접 API의 실서버 호출과 앱에서 잇플 상세 이동은 아직 검증 전입니다.
+
+k-skill 공개 프록시로 개인이 단발 조회하는 진단은 별도로 실행할 수 있습니다. 다음 명령은 실제 가맹점과 링크를 보여 주며, 캐시 응답인지도 표시합니다. 로컬 화면에서도 `k-skill 개인 단발 테스트`를 선택하면 한 번 조회할 수 있습니다. 개발 테스트·팀 서비스에서의 이용 조건은 [연동 문서](docs/integration.md)를 참고하세요.
+
+```powershell
+python -m backend.skill_probe
+```
+
+담당 범위 및 남은 통합 작업은 [작업 현황](docs/eatpl-course-tasks.md), 팀 통합 시 차이점은 [팀 공유 메모](docs/team-handoff.md), 데이터와 모듈 계약은 [계약](docs/contracts.md)을 참고하세요.
