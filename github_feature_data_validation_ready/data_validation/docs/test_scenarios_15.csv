@@ -1,0 +1,16 @@
+﻿test_id,scenario,expected_behavior,expected_validation_ok,actual_validation_ok,actual_pass,actual_needs_verification,actual_reject,checked_place,actual_place_status,example_course_ids,actual_course_status,test_result,finding_or_followup
+T01,"강남에서 4명, 한식, 매운 음식과 해산물 제외, 인당 3만원 이하",매운 음식·해산물 제외: 확인된 안전 식당만 통과,True,True,2,4,24,G01,pass,,,PASS,매운 음식·해산물 제외: 확인된 안전 식당만 통과
+T02,"강남에서 8명, 인당 2만원 이하",8명 요청에서 수용 2명인 식당 제외,True,True,4,2,24,G04,reject,,,PASS,8명 요청에서 수용 2명인 식당 제외
+T03,"강남에서 2명, 해산물 제외",해산물 취급 식당 제외,True,True,8,2,20,G11,reject,,,PASS,해산물 취급 식당 제외
+T04,"홍대에서 3명, 이탈리안 음식",양식과 이탈리안은 현재 정확한 문자열 비교에서 다른 음식 유형,True,True,0,0,30,,,,,PASS,양식과 이탈리안은 현재 정확한 문자열 비교에서 다른 음식 유형
+T05,"강남에서 6명, 조용한 식당",조용한 분위기가 증명되지 않은 장소는 추가 확인,True,True,7,3,20,G09,needs_verification,,,PASS,조용한 분위기가 증명되지 않은 장소는 추가 확인
+T06,강남에서 20명 회식,20명 조건에서 수용인원 미달 장소 제외,True,True,0,1,29,G09,reject,,,PASS,20명 조건에서 수용인원 미달 장소 제외
+T07,홍대에서 둘이 카페 갔다가 식당,카페→식당 업종 순서와 미검증 좌표,True,True,11,0,19,,,D01 → D02,needs_verification,PASS,D01 → D02: 지도 좌표 검증 전
+T08,"홍대에서 둘이 카페, 식당, 술집 순서로 데이트",카페→식당→술집 업종 순서와 미검증 좌표,True,True,14,1,15,,,D01 → D02 → D14,needs_verification,PASS,D01 → D02: 지도 좌표 검증 전 / D02 → D14: 지도 좌표 검증 전
+T09,"강남에서 둘이 식사하고 카페, 인당 4만원 이하","강남 식당→카페 코스, 미검증 좌표",True,True,10,3,17,,,G01 → G13,needs_verification,PASS,G01 → G13: 지도 좌표 검증 전
+T10,"홍대에서 둘이 카페 다음 식당, 장소 간 직선거리 500m 이하",0.5km 한도라도 실제 검증되지 않은 좌표로 확정하면 안 됨,True,True,11,0,19,,,D01 → D02,needs_verification,PASS,D01 → D02: 지도 좌표 검증 전
+T11,강남에서 0명 모임,0명은 유효하지 않은 사용자 조건,False,False,,,,,,,,PASS,입력 거부 사유: party_size: 1~30 사이의 정수여야 합니다
+T12,홍대에서 둘이 카페 한 곳만 가는 데이트,데이트 모드에서 한 장소만 제시하면 입력 규격 위반,False,False,,,,,,,,PASS,입력 거부 사유: date 모드는 category_order에 장소 2개 이상이 필요합니다
+T13,홍대 카페→식당 코스: 카페 좌표 누락,D10 → D02의 좌표가 없으면 코스는 추가 확인,,,,,,D10 → D02,,D10 → D02,needs_verification,PASS,실데이터 교체 시 근거를 재확인해야 함
+T14,강남 메뉴 미확인 식당 G05에 매운·해산물 제외 조건 적용,메뉴 안전 근거가 없으면 추가 확인,,,,,,G05,needs_verification,,,PASS,실데이터 교체 시 근거를 재확인해야 함
+T15,강남 해물 칼국수 G11에 해산물 제외 조건 적용,해산물 포함이 확인되면 제외,,,,,,G11,reject,,,PASS,실데이터 교체 시 근거를 재확인해야 함
