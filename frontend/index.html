@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>함께 만드는 데이트 코스</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <div class="brand"><span class="brand-icon" aria-hidden="true">✳</span> BDAI <span class="brand-dot">/</span> 함께 고르는 장소</div>
+      <span class="eyebrow">데이트 · 소개팅</span>
+      <h1>함께하는 시간에<br><em>어울리는 코스</em>를 찾아요</h1>
+      <p class="intro">가고 싶은 지역과 순서를 골라주세요.<br>카페와 식당을 묶어 살펴볼 수 있어요.</p>
+    </header>
+
+    <section class="layout" aria-label="코스 검색">
+      <form id="search-form" class="panel form-panel">
+        <div class="section-title"><span class="step">01</span><div><h2>어떤 만남을 준비하나요?</h2><p>알고 있는 조건부터 입력해 주세요.</p></div></div>
+        <div class="field">
+          <label for="mode">장소 데이터</label>
+          <select id="mode" name="mode"><option value="sample">샘플 데이터로 둘러보기</option><option value="skill-test">k-skill 개인 단발 테스트</option><option value="eatpl">실제 잇플 직접 제휴 API 검색</option></select>
+          <p class="hint">샘플은 가상 장소이며 실제 이동 링크가 없습니다.</p>
+          <p class="hint">k-skill은 개인 단발 테스트입니다. 캐시가 사용될 수 있으며 팀 서비스 이용조건 확인이 필요합니다.</p>
+        </div>
+        <div class="field">
+          <label for="region">지역 <span class="required">필수</span></label>
+          <input id="region" name="region" placeholder="예: 서울 성동구 성수동" maxlength="100" required>
+          <p class="hint" id="region-hint">샘플 데이터는 ‘가상 지역’에서 볼 수 있습니다.</p>
+        </div>
+        <fieldset class="field order-field">
+          <legend>코스 순서</legend>
+          <div class="order-options">
+            <label class="choice"><input type="radio" name="order" value="cafe-first" checked><span>☕ 카페 <b>→</b> 식당</span></label>
+            <label class="choice"><input type="radio" name="order" value="restaurant-first"><span>🍽 식당 <b>→</b> 카페</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="field preference-field">
+          <legend>장소별 필수 조건 <span class="optional">선택</span></legend>
+          <label class="check-option"><input id="quiet-cafe" type="checkbox"><span>카페는 조용한 곳</span></label>
+          <label class="check-option"><input id="no-seafood" type="checkbox"><span>식사는 해산물 제외</span></label>
+          <p class="hint">선택한 조건은 반드시 적용합니다. 장소 정보에 근거가 없으면 충족으로 단정하지 않고 확인 필요로 표시해요.</p>
+        </fieldset>
+        <div class="split-fields">
+          <div class="field"><label for="budget">코스 전체 1인 예산 <span class="optional">선택</span></label><div class="input-unit"><input id="budget" name="budget" type="number" min="0" step="1" inputmode="numeric" placeholder="제한 없음"><span>원</span></div></div>
+          <div class="field"><label for="distance">장소 간 최대 거리 <span class="optional">선택</span></label><div class="input-unit"><input id="distance" name="distance" type="number" min="0" step="1" inputmode="numeric" placeholder="제한 없음"><span>m</span></div><p class="hint">확인 가능한 좌표의 직선거리 기준</p></div>
+        </div>
+        <button id="submit" type="submit">코스 찾아보기 <span aria-hidden="true">↗</span></button>
+      </form>
+
+      <section class="results" aria-labelledby="results-title">
+        <div class="section-title result-heading"><span class="step">02</span><div><h2 id="results-title">추천 코스</h2><p>조건에 맞는 장소를 함께 살펴봐요.</p></div></div>
+        <div id="status" class="status" role="status" aria-live="polite">조건을 입력하면 이곳에 코스가 나타나요.</div>
+        <div id="notices" aria-live="polite"></div>
+        <div id="courses" class="course-list"></div>
+        <div id="place-options" class="course-list"></div>
+        <p id="source-note" class="source-note" hidden></p>
+      </section>
+    </section>
+    <footer>함께 고르고, 더 즐거운 시간으로.</footer>
+  </main>
+</body>
+</html>
