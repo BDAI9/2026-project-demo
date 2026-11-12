@@ -99,6 +99,14 @@ else:
 cp .env.example .env   # OPENROUTER_API_KEY 값 채우기 (.env는 git에 올라가지 않음)
 ```
 
+| 변수 | 설명 |
+| --- | --- |
+| `OPENROUTER_API_KEY` | OpenRouter 키 (`sk-or-v1-...`) |
+| `OPENROUTER_MODEL` | 쉼표로 여러 모델을 적으면 앞에서부터 시도. 비우면 기본 무료 모델 3개 |
+| `CONDITION_AI_USE_LLM` | `1`이면 통합 화면(`python -m backend.server`)에서도 AI 해석 사용. 비우면 규칙 기반만 |
+
+무료 모델(`:free`)은 자주 붐비거나(429) 목록에서 빠집니다(404). 이런 오류가 나면 다음 모델로 넘어가고, 모두 실패하면 규칙 기반 결과와 `warnings`를 돌려줍니다. 키 오류(401)·크레딧 부족(402)은 모델을 바꿔도 소용없으므로 바로 멈춥니다. 무료 모델 목록은 바뀌므로 openrouter.ai/models에서 Free 필터로 확인하세요.
+
 ## 알려진 한계
 
 - 규칙 기반은 사전(`vocab.py`)에 있는 단어만 인식합니다. 새 지역·음식은 사전에 추가하세요.

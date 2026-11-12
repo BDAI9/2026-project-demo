@@ -22,17 +22,38 @@ except ImportError:  # pragma: no cover
     pass
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
-DEFAULT_MODEL = "openai/gpt-4o-mini"
+# 무료 모델은 자주 붐비거나(429) 목록에서 빠지므로 여러 개를 순서대로 시도한다.
+# OPENROUTER_MODEL에 쉼표로 여러 모델을 적으면 그 순서를 쓴다.
+DEFAULT_MODELS = [
+    "google/gemma-4-31b-it:free",
+    "google/gemma-4-26b-a4b-it:free",
+    "nvidia/nemotron-3.5-lightning:free",
+]
+DEFAULT_MODEL = DEFAULT_MODELS[0]
 TIMEOUT_SECONDS = 20
 
 
 class LLMError(Exception):
-    """AI 해석 실패. message는 사용자에게 보여줘도 되는 한국어 문장."""
+    """AI 해석 실패. message는 사용자에게 보여줘도 되는 한국어 문장.
+
+    retryable=True면 다른 모델로 다시 시도할 만한 오류(혼잡, 모델 없음, 응답 깨짐 등)다.
+    """
+
+    def __init__(self, message: str, retryable: bool = False):
+        super().__init__(message)
+        self.retryable = retryable
 
 
 def get_api_key() -> Optional[str]:
     key = os.getenv("OPENROUTER_API_KEY", "").strip()
     return key or None
+
+
+def get_models(model: Optional[str] = None) -> list[str]:
+    """시도할 모델 목록. 인자 > OPENROUTER_MODEL(쉼표 구분) > 기본 무료 모델 순."""
+    raw = model or os.getenv("OPENROUTER_MODEL", "")
+    models = [m.strip() for m in raw.split(",") if m.strip()]
+    return models or list(DEFAULT_MODELS)
 
 
 def call_openrouter(messages: list[dict], api_key: str, model: Optional[str] = None) -> str:
@@ -48,7 +69,7 @@ def call_openrouter(messages: list[dict], api_key: str, model: Optional[str] = N
                 "X-Title": "BDAI 2026 project demo",
             },
             json={
-                "model": model or os.getenv("OPENROUTER_MODEL", DEFAULT_MODEL),
+                "model": model or get_models()[0],
                 "messages": messages,
                 "temperature": 0,
                 "response_format": {"type": "json_object"},
@@ -56,7 +77,7 @@ def call_openrouter(messages: list[dict], api_key: str, model: Optional[str] = N
             timeout=TIMEOUT_SECONDS,
         )
     except requests.Timeout as e:
-        raise LLMError("AI 응답이 너무 늦어요.") from e
+        raise LLMError("AI 응답이 너무 늦어요.", retryable=True) from e
     except requests.RequestException as e:
         raise LLMError("AI 서버에 연결하지 못했어요.") from e
 
@@ -65,14 +86,15 @@ def call_openrouter(messages: list[dict], api_key: str, model: Optional[str] = N
     if resp.status_code == 402:
         raise LLMError("OpenRouter 크레딧이 부족해요.")
     if resp.status_code == 429:
-        raise LLMError("AI 요청이 너무 많아요. 잠시 후 다시 시도해 주세요.")
+        raise LLMError("AI 요청이 너무 많아요. 잠시 후 다시 시도해 주세요.", retryable=True)
     if resp.status_code >= 400:
-        raise LLMError(f"AI 서버 오류가 났어요. (HTTP {resp.status_code})")
+        # 404/400: 모델이 없어졌거나 옵션을 지원하지 않음, 5xx: 일시 오류 → 다른 모델로
+        raise LLMError(f"AI 서버 오류가 났어요. (HTTP {resp.status_code})", retryable=True)
 
     try:
         return resp.json()["choices"][0]["message"]["content"] or ""
     except (ValueError, KeyError, IndexError, TypeError) as e:
-        raise LLMError("AI 응답 형식이 예상과 달라요.") from e
+        raise LLMError("AI 응답 형식이 예상과 달라요.", retryable=True) from e
 
 
 def parse_json_text(text: str) -> dict:
@@ -84,13 +106,13 @@ def parse_json_text(text: str) -> dict:
     except json.JSONDecodeError:
         m = re.search(r"\{.*\}", text, re.S)
         if not m:
-            raise LLMError("AI 응답에서 JSON을 찾지 못했어요.")
+            raise LLMError("AI 응답에서 JSON을 찾지 못했어요.", retryable=True)
         try:
             obj = json.loads(m.group(0))
         except json.JSONDecodeError as e:
-            raise LLMError("AI 응답 JSON이 깨져 있어요.") from e
+            raise LLMError("AI 응답 JSON이 깨져 있어요.", retryable=True) from e
     if not isinstance(obj, dict):
-        raise LLMError("AI 응답이 JSON 객체가 아니에요.")
+        raise LLMError("AI 응답이 JSON 객체가 아니에요.", retryable=True)
     return obj
 
 
@@ -170,9 +192,25 @@ def normalize_llm_output(obj: dict) -> dict:
 
 def parse_llm(conversation: str, mode_label: str, api_key: Optional[str] = None,
               model: Optional[str] = None) -> dict:
-    """대화를 AI로 해석해 초안을 돌려준다. 실패하면 LLMError."""
+    """대화를 AI로 해석해 초안을 돌려준다. 실패하면 LLMError.
+
+    모델을 순서대로 시도하고, 다시 시도할 만한 오류면 다음 모델로 넘어간다.
+    키 오류·크레딧 부족처럼 모델을 바꿔도 소용없는 오류는 바로 멈춘다.
+    """
     api_key = api_key or get_api_key()
     if not api_key:
         raise LLMError("OPENROUTER_API_KEY가 설정되지 않았어요.")
-    content = call_openrouter(build_messages(conversation, mode_label), api_key, model)
-    return normalize_llm_output(parse_json_text(content))
+    messages = build_messages(conversation, mode_label)
+    models = get_models(model)
+    last_error: Optional[LLMError] = None
+    for name in models:
+        try:
+            content = call_openrouter(messages, api_key, name)
+            return normalize_llm_output(parse_json_text(content))
+        except LLMError as e:
+            if not e.retryable:
+                raise
+            last_error = e
+    if len(models) > 1:
+        raise LLMError(f"모델 {len(models)}개를 모두 시도했지만 실패했어요. ({last_error})")
+    raise last_error  # type: ignore[misc]
