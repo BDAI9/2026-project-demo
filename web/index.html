@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>함께 고르는 모임 장소</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="wrap narrow">
+    <p class="eyebrow">BDAI · 모임 장소 추천</p>
+    <h1>링크 하나로 모여서<br>다 같이 고르는 장소</h1>
+    <p class="lead">모임을 만들고 링크를 공유하세요. 각자 지역, 카페·식당·술집, 예산, 분위기, 알레르기를 체크하면 모두의 선호가 몰린 가게를 추천해 드려요.</p>
+    <form id="create-form" class="card">
+      <label for="title">모임 이름</label>
+      <input id="title" maxlength="40" placeholder="예: 금요일 동기 모임">
+      <button type="submit">모임 만들기</button>
+      <p id="create-status" class="status" role="status"></p>
+    </form>
+    <ol class="steps">
+      <li><strong>모임 만들기</strong> — 링크가 생겨요.</li>
+      <li><strong>링크 공유</strong> — 친구들이 각자 선호를 체크해요.</li>
+      <li><strong>추천 받기</strong> — 가게를 누르면 잇플로 이동해요.</li>
+    </ol>
+  </main>
+  <script src="/static/index.js"></script>
+</body>
+</html>

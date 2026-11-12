@@ -1,0 +1,599 @@
+{
+ "note": "시연용 가상 가게입니다. 실제 매장이 아닙니다.",
+ "data": [
+  {
+   "merNm": "홍대 조용한 북카페 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 1번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 38,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 디저트 카페 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 2번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 75,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 로스터리 카페 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 3번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 12,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 루프탑 카페 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 4번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 49,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 베이커리 카페 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 5번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 86,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 한식 밥집 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 6번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "일반한식",
+   "allSaleRnk": 23,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 가정식 백반 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 7번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "일반한식",
+   "allSaleRnk": 60,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 중식당 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 8번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "중국음식",
+   "allSaleRnk": 97,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 횟집 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 9번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "일식회집",
+   "allSaleRnk": 34,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 초밥집 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 10번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "스시/초밥",
+   "allSaleRnk": 71,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 파스타 다이닝 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 11번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "이탈리아음식",
+   "allSaleRnk": 8,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 삼겹살집 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 12번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "고기구이",
+   "allSaleRnk": 45,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 분식집 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 13번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "분식",
+   "allSaleRnk": 82,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 쌀국수집 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 14번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "아시안",
+   "allSaleRnk": 19,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 수제버거 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 15번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "버거",
+   "allSaleRnk": 56,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 비건 식당 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 16번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "비건/채식/사찰",
+   "allSaleRnk": 93,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 조개찜 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 17번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "해산물구이/찜",
+   "allSaleRnk": 30,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "홍대 호프집 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 18번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "호프",
+   "allSaleRnk": 67,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  },
+  {
+   "merNm": "홍대 이자카야 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 19번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "이자카야",
+   "allSaleRnk": 4,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  },
+  {
+   "merNm": "홍대 와인바 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 20번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "바(bar)",
+   "allSaleRnk": 41,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  },
+  {
+   "merNm": "홍대 칵테일바 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 21번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "바(bar)",
+   "allSaleRnk": 78,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  },
+  {
+   "merNm": "홍대 포차 (가상)",
+   "merAddr": "서울 마포구 홍대입구 일대 22번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "기타주점",
+   "allSaleRnk": 15,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  },
+  {
+   "merNm": "성수 조용한 북카페 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 23번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 52,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 디저트 카페 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 24번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 89,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 로스터리 카페 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 25번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 26,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 루프탑 카페 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 26번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 63,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 베이커리 카페 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 27번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 100,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 한식 밥집 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 28번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "일반한식",
+   "allSaleRnk": 37,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 가정식 백반 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 29번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "일반한식",
+   "allSaleRnk": 74,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 중식당 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 30번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "중국음식",
+   "allSaleRnk": 11,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 횟집 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 31번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "일식회집",
+   "allSaleRnk": 48,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 초밥집 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 32번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "스시/초밥",
+   "allSaleRnk": 85,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 파스타 다이닝 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 33번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "이탈리아음식",
+   "allSaleRnk": 22,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 삼겹살집 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 34번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "고기구이",
+   "allSaleRnk": 59,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 분식집 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 35번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "분식",
+   "allSaleRnk": 96,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 쌀국수집 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 36번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "아시안",
+   "allSaleRnk": 33,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 수제버거 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 37번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "버거",
+   "allSaleRnk": 70,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 비건 식당 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 38번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "비건/채식/사찰",
+   "allSaleRnk": 7,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 조개찜 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 39번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "해산물구이/찜",
+   "allSaleRnk": 44,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "성수 호프집 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 40번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "호프",
+   "allSaleRnk": 81,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  },
+  {
+   "merNm": "성수 이자카야 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 41번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "이자카야",
+   "allSaleRnk": 18,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  },
+  {
+   "merNm": "성수 와인바 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 42번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "바(bar)",
+   "allSaleRnk": 55,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  },
+  {
+   "merNm": "성수 칵테일바 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 43번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "바(bar)",
+   "allSaleRnk": 92,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  },
+  {
+   "merNm": "성수 포차 (가상)",
+   "merAddr": "서울 성동구 성수동 일대 44번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "기타주점",
+   "allSaleRnk": 29,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  },
+  {
+   "merNm": "강남 조용한 북카페 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 45번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 66,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 디저트 카페 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 46번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 3,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 로스터리 카페 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 47번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 40,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 루프탑 카페 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 48번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 77,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 베이커리 카페 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 49번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "카페",
+   "allSaleRnk": 14,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 한식 밥집 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 50번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "일반한식",
+   "allSaleRnk": 51,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 가정식 백반 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 51번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "일반한식",
+   "allSaleRnk": 88,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 중식당 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 52번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "중국음식",
+   "allSaleRnk": 25,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 횟집 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 53번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "일식회집",
+   "allSaleRnk": 62,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 초밥집 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 54번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "스시/초밥",
+   "allSaleRnk": 99,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 파스타 다이닝 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 55번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "이탈리아음식",
+   "allSaleRnk": 36,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 삼겹살집 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 56번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "고기구이",
+   "allSaleRnk": 73,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 분식집 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 57번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "분식",
+   "allSaleRnk": 10,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 쌀국수집 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 58번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "아시안",
+   "allSaleRnk": 47,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 수제버거 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 59번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "버거",
+   "allSaleRnk": 84,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 비건 식당 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 60번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "비건/채식/사찰",
+   "allSaleRnk": 21,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 조개찜 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 61번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "해산물구이/찜",
+   "allSaleRnk": 58,
+   "srtTime": "11:00",
+   "endTime": "21:00"
+  },
+  {
+   "merNm": "강남 호프집 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 62번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "호프",
+   "allSaleRnk": 95,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  },
+  {
+   "merNm": "강남 이자카야 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 63번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "이자카야",
+   "allSaleRnk": 32,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  },
+  {
+   "merNm": "강남 와인바 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 64번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "바(bar)",
+   "allSaleRnk": 69,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  },
+  {
+   "merNm": "강남 칵테일바 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 65번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "바(bar)",
+   "allSaleRnk": 6,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  },
+  {
+   "merNm": "강남 포차 (가상)",
+   "merAddr": "서울 강남구 강남역 일대 66번지 (시연용 가상 주소)",
+   "merUrl": null,
+   "merTpbuzNm": "기타주점",
+   "allSaleRnk": 43,
+   "srtTime": "11:00",
+   "endTime": "23:00"
+  }
+ ]
+}
