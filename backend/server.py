@@ -8,10 +8,13 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from backend.app.service import search_courses
+from backend.app.team_integration import interpret, recommend
 
 
 FRONTEND = Path(__file__).resolve().parent.parent / "frontend"
-STATIC = {"/": ("index.html", "text/html"), "/app.js": ("app.js", "text/javascript"), "/styles.css": ("styles.css", "text/css")}
+STATIC = {"/": ("team.html", "text/html"), "/team.js": ("team.js", "text/javascript"),
+          "/team.css": ("team.css", "text/css"), "/date-demo": ("index.html", "text/html"),
+          "/app.js": ("app.js", "text/javascript"), "/styles.css": ("styles.css", "text/css")}
 MAX_BODY_BYTES = 16_384
 
 
@@ -57,7 +60,8 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         if not self._local_request():
             return self._json(403, {"message": "허용되지 않은 요청입니다."})
-        if self.path != "/api/search":
+        routes = {"/api/search": search_courses, "/api/interpret": interpret, "/api/team-search": recommend}
+        if self.path not in routes:
             return self._json(404, {"message": "요청 경로를 찾을 수 없습니다."})
         if self.headers.get_content_type() != "application/json":
             return self._json(415, {"message": "JSON 요청이 필요합니다."})
@@ -66,7 +70,7 @@ class Handler(BaseHTTPRequestHandler):
             if size < 1 or size > MAX_BODY_BYTES:
                 raise ValueError
             payload = json.loads(self.rfile.read(size))
-            result = search_courses(payload)
+            result = routes[self.path](payload)
         except (ValueError, UnicodeDecodeError, json.JSONDecodeError):
             return self._json(400, {"status": "error", "message": "입력한 지역, 순서, 예산과 거리를 확인해 주세요.", "courses": []})
         except Exception:
