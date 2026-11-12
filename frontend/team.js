@@ -72,8 +72,9 @@ function showProposal(proposal, raw) {
   byId("date-fields").hidden = productMode.value !== "date";
   byId("order").required = productMode.value === "date";
   const course = Array.isArray(proposal.course) ? proposal.course.map((x) => x && x.place_type) : [];
-  const exactOrder = course.length === 2 && ["카페,식당", "식당,카페"].includes(course.join(","));
-  byId("order").value = exactOrder ? (course[0] === "식당" ? "restaurant,cafe" : "cafe,restaurant") : "";
+  const category = { "카페": "cafe", "식당": "restaurant", "술집": "bar" };
+  const exactOrder = course.length === 2 && course.every((name) => Object.hasOwn(category, name)) && course[0] !== course[1];
+  byId("order").value = exactOrder ? course.map((name) => category[name]).join(",") : "";
   confirmed.checked = false;
   const scoped = Array.isArray(proposal.course) ? proposal.course.filter((step) => step && Array.isArray(step.preferences) && step.preferences.length) : [];
   const needsLimits = productMode.value === "date" && ((course.length > 0 && !exactOrder) || scoped.length > 0);
@@ -82,8 +83,8 @@ function showProposal(proposal, raw) {
   byId("limit-confirmed").checked = false;
   const notices = byId("proposal-notices");
   notices.replaceChildren();
-  if (productMode.value === "date" && course.length && !(course.length === 2 && ["카페,식당", "식당,카페"].includes(course.join(",")))) {
-    notices.append(element("p", "notice", `초안의 코스: ${course.join(" → ")}. 현재 시범 검색은 카페·식당 두 곳만 지원합니다. 추가 장소는 그대로 검색할 수 없으므로 순서를 직접 선택해 주세요.`));
+  if (productMode.value === "date" && course.length && !exactOrder) {
+    notices.append(element("p", "notice", `초안의 코스: ${course.join(" → ")}. 현재 시범 검색은 카페·식당·술집 중 서로 다른 두 곳만 지원합니다. 이 코스는 그대로 검색할 수 없으므로 순서를 직접 선택해 주세요.`));
   }
   scoped.forEach((step) => notices.append(element("p", "notice", `${step.place_type || "장소"}에 대한 선호: ${step.preferences.join(", ")}. 이 시범 검색은 장소별 범위를 구분하지 않으므로 원문과 아래 조건을 직접 확인해 주세요.`)));
   if (Array.isArray(proposal.atmosphere) && proposal.atmosphere.length) {

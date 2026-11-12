@@ -72,8 +72,11 @@ def _request(payload):
     preferred = _string_list(payload.get("preferred_cuisines", []), "선호 음식")
     tags = _string_list(payload.get("required_tags", []), "필수 분위기")
     order = payload.get("category_order", [])
-    if not isinstance(order, list) or (mode == "group" and order != []) or (mode == "date" and order not in (["cafe", "restaurant"], ["restaurant", "cafe"])):
-        raise ValueError("데이트는 카페와 식당 두 곳의 순서만 지원합니다.")
+    if (not isinstance(order, list) or (mode == "group" and order != []) or
+            (mode == "date" and (len(order) != 2 or
+                                 any(item not in ("cafe", "restaurant", "bar") for item in order) or
+                                 order[0] == order[1]))):
+        raise ValueError("데이트는 식당·카페·술집 중 서로 다른 두 곳의 순서를 선택해 주세요.")
     budget = payload.get("max_budget_per_person")
     if budget is not None and (isinstance(budget, bool) or not isinstance(budget, int) or not 1 <= budget <= 1_000_000_000):
         raise ValueError("한 장소의 1인 예산은 양의 정수여야 합니다.")

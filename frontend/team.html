@@ -50,7 +50,16 @@
             <input id="required-tags" placeholder="예: 조용한, 룸">
             <div id="date-fields" hidden>
               <label for="order">코스 순서</label>
-              <select id="order" required><option value="">순서를 직접 선택해 주세요</option><option value="cafe,restaurant">카페 → 식당</option><option value="restaurant,cafe">식당 → 카페</option></select>
+              <select id="order" required>
+                <option value="">순서를 직접 선택해 주세요</option>
+                <option value="cafe,restaurant">카페 → 식당</option>
+                <option value="restaurant,cafe">식당 → 카페</option>
+                <option value="restaurant,bar">식당 → 술집</option>
+                <option value="bar,restaurant">술집 → 식당</option>
+                <option value="cafe,bar">카페 → 술집</option>
+                <option value="bar,cafe">술집 → 카페</option>
+              </select>
+              <p class="hint">카페·식당·술집 중 서로 다른 두 곳을 선택합니다.</p>
               <label for="max-distance">장소 간 최대 직선거리 (m)</label>
               <input id="max-distance" type="number" min="1" max="30000" step="1" placeholder="제한 없음">
               <p class="hint">실제 이동 경로나 도보 시간이 아닙니다.</p>
@@ -61,7 +70,7 @@
             <label for="source">장소 데이터</label>
             <select id="source"><option value="sample">샘플 데이터</option><option value="skill-test">k-skill 개인 단발 테스트</option></select>
             <p class="hint">샘플은 강남·홍대의 가상 장소입니다. k-skill의 팀 서비스 이용 조건은 확인이 필요합니다.</p>
-            <label id="limit-confirmation" class="confirm" hidden><input id="limit-confirmed" type="checkbox"><span>현재 시범 검색은 카페·식당 두 곳과 공통 조건만 지원합니다. 위에 표시된 추가 장소 또는 장소별 범위가 이번 검색에 그대로 반영되지 않음을 확인했습니다.</span></label>
+            <label id="limit-confirmation" class="confirm" hidden><input id="limit-confirmed" type="checkbox"><span>현재 시범 검색은 카페·식당·술집 중 두 곳과 공통 조건만 지원합니다. 위에 표시된 추가 장소 또는 장소별 범위가 이번 검색에 그대로 반영되지 않음을 확인했습니다.</span></label>
             <label class="confirm"><input id="confirmed" type="checkbox" required><span>원문과 위 조건을 비교했고, 빠진 필수 조건을 직접 추가했습니다.</span></label>
             <button type="submit" id="search-button">확인한 조건으로 찾기</button>
           </form>

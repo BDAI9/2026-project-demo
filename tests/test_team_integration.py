@@ -90,11 +90,41 @@ class TeamIntegrationTests(unittest.TestCase):
             empty = recommend(request(source="skill-test"))
         self.assertEqual((empty["status"], empty["candidates"]), ("empty", []))
 
+    def test_bar_courses_use_sample_and_honor_distance_limit(self):
+        args = request(product_mode="date", region="홍대", party_size=2,
+                       category_order=["restaurant", "bar"])
+        result = recommend(args)
+        self.assertEqual(result["status"], "ok")
+        categories = {c["id"]: c["category"] for c in result["candidates"]}
+        self.assertTrue(result["courses"])
+        self.assertTrue(all([categories[p["id"]] for p in course["places"]] == ["restaurant", "bar"]
+                            for course in result["courses"]))
+        limited = recommend({**args, "max_leg_distance_m": 100})
+        self.assertTrue(all(c["distance_m"] is None or c["distance_m"] <= 100 for c in limited["courses"]))
+
+    def test_bar_real_unknown_facts_and_location_are_not_invented(self):
+        places = [map_place({"merNm": "식당", "merAddr": "서울 홍대", "merTpbuzNm": "일반한식"}),
+                  map_place({"merNm": "술집", "merAddr": "서울 홍대", "merTpbuzNm": "기타주점"})]
+        args = request(source="skill-test", product_mode="date", region="홍대", party_size=2,
+                       excluded_terms=["해산물"], category_order=["restaurant", "bar"])
+        with patch("backend.app.team_integration.skill_probe.fetch_places", return_value=(places, False)):
+            result = recommend(args)
+        self.assertEqual(result["status"], "ok")
+        self.assertEqual(result["courses"][0]["status"], "needs_verification")
+        self.assertIsNone(result["courses"][0]["distance_m"])
+
+    def test_only_observed_unambiguous_bar_categories_map_to_bar(self):
+        for label in ("기타주점", "호프", "이자카야", "바(bar)"):
+            with self.subTest(label=label):
+                self.assertEqual(map_place({"merNm": "장소", "merAddr": "서울 홍대", "merTpbuzNm": label}).category, "bar")
+        self.assertEqual(map_place({"merNm": "장소", "merAddr": "서울 홍대", "merTpbuzNm": "주점"}).category, "unknown")
+
     def test_rejects_invalid_or_unrecognized_conditions(self):
         invalid = [request(confirmed=1), request(party_size=True), request(source="unknown"),
                    request(extra_condition="must not be dropped"), request(excluded_terms="해산물"),
                    request(max_leg_distance_m=float("nan")),
-                   request(product_mode="date", category_order=["cafe", "bar"])]
+                   request(product_mode="date", category_order=["bar", "bar"]),
+                   request(product_mode="date", category_order=["cafe", "restaurant", "bar"])]
         for payload in invalid:
             with self.subTest(payload=payload), self.assertRaises(ValueError):
                 recommend(payload)

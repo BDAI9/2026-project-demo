@@ -60,6 +60,21 @@ class TeamHTTPTests(unittest.TestCase):
         payload["ignored_important_constraint"] = "알레르기"
         self.assertEqual(self.request_json("/api/team-search", payload)[0], 400)
 
+    def test_date_restaurant_to_bar_course(self):
+        payload = {"product_mode": "date", "source": "sample", "region": "홍대",
+                   "party_size": 2, "excluded_terms": [], "preferred_cuisines": [],
+                   "required_tags": [], "category_order": ["restaurant", "bar"],
+                   "max_budget_per_person": None, "max_leg_distance_m": None,
+                   "confirmed": True}
+        status, result = self.request_json("/api/team-search", payload)
+        self.assertEqual(status, 200)
+        self.assertEqual(result["status"], "ok")
+        self.assertTrue(result["courses"])
+        categories = {c["id"]: c["category"] for c in result["candidates"]}
+        for course in result["courses"]:
+            self.assertEqual([categories[p["id"]] for p in course["places"]],
+                             ["restaurant", "bar"])
+
 
 if __name__ == "__main__":
     unittest.main()

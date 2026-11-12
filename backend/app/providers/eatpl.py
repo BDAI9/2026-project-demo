@@ -68,6 +68,7 @@ _RESTAURANT_CATEGORIES = {
     "마라탕", "이탈리아음식", "양꼬치", "아시안", "전/부침개", "일식라멘",
     "멕시칸", "프랑스음식", "비건/채식/사찰",
 }
+_BAR_CATEGORIES = {"기타주점", "호프", "이자카야", "바(bar)"}
 
 
 def map_place(row: object) -> Place:
@@ -90,7 +91,8 @@ def map_place(row: object) -> Place:
     if not isinstance(business_type, str):
         business_type = None
     category = "cafe" if business_type == "카페" else (
-        "restaurant" if business_type in _RESTAURANT_CATEGORIES else "unknown")
+        "restaurant" if business_type in _RESTAURANT_CATEGORIES else (
+            "bar" if business_type in _BAR_CATEGORIES else "unknown"))
     attributes = {}
     for raw_key, key in (("merTpbuzNm", "business_type"), ("allSaleRnk", "national_sales_percentile"),
                          ("ccgSaleRnk", "regional_sales_percentile"),
