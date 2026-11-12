@@ -9,6 +9,8 @@ from typing import Optional
 
 from .llm_parser import LLMError, get_api_key, parse_llm
 from .rule_parser import MessageInput, Message, normalize_messages, parse_rule
+from .safety import unresolved_inputs
+from .vocab import find_terms
 from .schema import (
     DEFAULT_DATE_COURSE,
     DEFAULT_DATE_PEOPLE,
@@ -86,7 +88,13 @@ def _merge(llm: dict, rule: dict, raw_text: str, mode: str) -> dict:
     d = dict(llm)
     llm_region_ambiguous = any(a["field"] == "region" for a in llm["ambiguities"])
 
-    if d["region"] and not _appears(d["region"], raw_text):
+    llm_regions = {term.canonical for _, _, term in find_terms(d["region"] or "") if term.kind == "region"}
+    if d["region"] and ({d["region"]} | llm_regions) & set(rule.get("_rejected_regions", [])):
+        # A location's presence in the message does not mean it was accepted.
+        d["_unverified_region"] = d["region"]
+        d["region"] = None
+        d["region_candidates"] = rule["region_candidates"]
+    elif d["region"] and not _appears(d["region"], raw_text):
         # 입력에 없는 지역을 AI가 지어냈을 가능성 → 그대로 쓰지 않는다
         d["_unverified_region"] = d["region"]
         d["region"] = None
@@ -95,7 +103,10 @@ def _merge(llm: dict, rule: dict, raw_text: str, mode: str) -> dict:
         d["region"] = rule["region"]
         d["region_candidates"] = rule["region_candidates"]
 
-    if d["people"] is None:
+    if mode == "group" and rule["people"] is None:
+        # Participant count is not evidence of the actual event headcount.
+        d["people"] = None
+    elif d["people"] is None:
         d["people"] = rule["people"]
     d["_people_mentions"] = rule.get("_people_mentions", [])
 
@@ -129,6 +140,19 @@ def _finalize(draft: dict, mode: str, messages: list[Message], raw_text: str,
 
     if draft.get("_empty"):
         ask("input", "missing", "어떤 장소를 찾고 싶은지 조건을 입력해 주세요.", blocking=True)
+
+    # Derive this from the original messages even when an LLM supplied the
+    # draft: unsupported hard constraints must not disappear in a merge.
+    unresolved = unresolved_inputs(messages)
+    for item in unresolved:
+        author = f"{item['speaker']}님: " if item["speaker"] else ""
+        original = f"{author}‘{item['text']}’"
+        if item["kind"] == "budget":
+            ask("budget", "unverified", f"{original}의 예산을 아직 검색 조건에 적용할 수 없어요. 예산 기준을 확인해 주세요.", blocking=True)
+        elif item["kind"] == "allergy":
+            ask("exclusions", "unverified", f"{original}의 알레르기 조건을 확인해 주세요. 장소의 안전을 자동으로 보장할 수 없어요.", blocking=True)
+        else:
+            ask("exclusions", "unverified", f"{original}에서 제외할 대상을 모두 확인해 주세요.", blocking=True)
 
     # 1) 선호와 제외가 겹치면 → 제외를 우선하고 확인 질문
     for item in [x for x in _dedup(prefs + atmos + places) if x in excl]:
@@ -171,8 +195,9 @@ def _finalize(draft: dict, mode: str, messages: list[Message], raw_text: str,
             people = len(speakers)
             assumptions.append({"field": "people", "value": people,
                                 "reason": f"인원을 말하지 않아 대화에 참여한 {people}명으로 했어요."})
+            ask("people", "unverified", f"대화 참여자 수는 {people}명이에요. 실제 모임 인원도 {people}명이 맞나요?", blocking=True)
         elif people is None and not draft.get("_empty"):
-            ask("people", "missing", "몇 명이 모이나요?")
+            ask("people", "missing", "몇 명이 모이나요?", blocking=True)
         if people is not None and len(speakers) > people:
             ask("people", "ambiguous",
                 f"대화에 {len(speakers)}명이 있는데 인원은 {people}명이에요. 몇 명이 맞나요?",
@@ -229,6 +254,7 @@ def _finalize(draft: dict, mode: str, messages: list[Message], raw_text: str,
         "clarifications": clar,
         "assumptions": assumptions,
         "warnings": warnings,
+        "unresolved_inputs": unresolved,
         "is_ready": is_ready,
         "source": source,
         "raw_text": raw_text,

@@ -58,6 +58,12 @@ class Assumption(TypedDict):
     reason: str
 
 
+class UnresolvedInput(TypedDict):
+    kind: str  # budget | allergy | exclusion
+    speaker: Optional[str]
+    text: str  # source segment, not an inferred condition
+
+
 class ConditionResult(TypedDict):
     schema_version: str
     mode: Mode
@@ -73,6 +79,7 @@ class ConditionResult(TypedDict):
     clarifications: list[Clarification]
     assumptions: list[Assumption]  # 사용자가 말하지 않아 기본값으로 채운 항목
     warnings: list[str]  # API 오류 등 개발자·사용자에게 알릴 내용
+    unresolved_inputs: list[UnresolvedInput]  # 확인이 필요한 원문과 작성자
     is_ready: bool  # True면 바로 잇플 검색에 넘겨도 된다
     source: str  # "rule" | "llm"
     raw_text: str
