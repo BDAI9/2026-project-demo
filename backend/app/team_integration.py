@@ -7,6 +7,7 @@ the user edit every field before it sends a confirmed recommendation request.
 from __future__ import annotations
 
 import math
+import os
 from pathlib import Path
 
 from condition_ai import parse_conditions
@@ -34,7 +35,9 @@ def interpret(payload: object) -> dict:
         raise ValueError("조건 문장을 입력해 주세요. (2,000자 이내)")
     if mode not in ("group", "date"):
         raise ValueError("단체 또는 데이트 모드를 선택해 주세요.")
-    proposal = parse_conditions(text, mode, use_llm=False)
+    # AI 해석은 CONDITION_AI_USE_LLM=1(.env 또는 환경 변수)일 때만 켠다. 기본은 규칙 기반.
+    use_llm = os.getenv("CONDITION_AI_USE_LLM", "").strip() == "1"
+    proposal = parse_conditions(text, mode, use_llm=use_llm)
     return {"status": "ok", "proposal": proposal,
             "message": "해석이 일부 누락될 수 있습니다. 원문과 각 조건을 확인하고 빠진 내용을 직접 입력해 주세요."}
 
