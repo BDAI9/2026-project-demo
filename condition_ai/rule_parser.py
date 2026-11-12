@@ -98,9 +98,21 @@ def _polarity(part: str) -> str:
 
 def _analyze_part(text: str, offset: int, forced: Optional[str]) -> list[tuple[int, str, str, str]]:
     polarity = forced or _polarity(text)
+    terms = find_terms(text)
     out = []
-    for s, _, term in find_terms(text):
-        out.append((offset + s, term.canonical, term.kind, term.force or polarity))
+    for s, e, term in terms:
+        term_polarity = term.force or polarity
+        if term.kind == "region" and term_polarity == "neg":
+            # A location phrase followed by a different recognized subject,
+            # as in "강남에서 해산물 제외", does not itself refer to the
+            # excluded item.  Without both clues retain the conservative
+            # negative interpretation, e.g. "강남은 싫어" and "강남 말고".
+            suffix = text[e:]
+            location_phrase = re.match(r"\s*(?:역\s*)?(?:에서|근처|인근|주변|쪽)(?:에서|으로|는|에|의)?(?:\s|$)", suffix)
+            other_subject = any(start >= e and other.kind != "region" for start, _, other in terms)
+            if location_phrase and other_subject:
+                term_polarity = "pos"
+        out.append((offset + s, term.canonical, term.kind, term_polarity))
     return out
 
 
@@ -194,8 +206,14 @@ def parse_rule(messages: list[Message], mode: str) -> dict:
     draft = empty_draft()
     events = extract_events(messages)
 
+    # Never silently restore a location explicitly rejected elsewhere in the
+    # same snapshot, even if it was also mentioned as a positive candidate.
+    rejected_regions = {e.canonical for e in events if e.kind == "region" and e.polarity == "neg"}
+    # Retain this independently of candidates so the LLM merger can reject a
+    # proposed region even when its name appears in the user's original text.
+    draft["_rejected_regions"] = sorted(rejected_regions)
     regions = _dedup(e.canonical for e in sorted(events, key=lambda e: e.key)
-                     if e.kind == "region" and e.polarity != "neg")
+                     if e.kind == "region" and e.polarity != "neg" and e.canonical not in rejected_regions)
     draft["region_candidates"] = regions
     draft["region"] = regions[0] if len(regions) == 1 else None
 
