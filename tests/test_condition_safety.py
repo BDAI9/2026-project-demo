@@ -103,3 +103,35 @@ def test_llm_cannot_invent_a_group_headcount(monkeypatch):
     assert result["people"] is None
     assert not result["is_ready"]
     assert any(item["field"] == "people" for item in blocking_questions(result))
+
+
+@pytest.mark.parametrize("phrase, term", [("유제품 불가", "유제품"), ("밀가루 금지", "밀가루")])
+def test_common_prohibition_is_not_ignored(phrase, term):
+    result = parse_conditions(f"강남에서 4명, {phrase}", "group", use_llm=False)
+    assert term in result["exclusions"] or not result["is_ready"]
+
+
+@pytest.mark.parametrize("phrase", ["유당불내증 있어요", "계란 먹으면 두드러기 나요", "계란은 안 들어가게"])
+def test_medical_reaction_and_omission_requests_are_not_dropped(phrase):
+    result = parse_conditions(f"강남에서 4명, {phrase}", "group", use_llm=False)
+    assert not result["is_ready"]
+    assert any(phrase in item["text"] for item in result["unresolved_inputs"])
+
+
+def test_korean_spelled_budget_is_not_dropped():
+    result = parse_conditions("강남에서 4명, 한사람당 이만 이하", "group", use_llm=False)
+    assert not result["is_ready"]
+    assert any(item["kind"] == "budget" for item in result["unresolved_inputs"])
+
+
+@pytest.mark.parametrize("phrase", ["계란, 해산물 제외", "달걀, 해산물 빼주세요", "해산물 아닌 한식", "계란 들어가면 죽어"])
+def test_ambiguous_or_urgent_exclusion_is_not_silently_lost(phrase):
+    result = parse_conditions(f"강남에서 4명, {phrase}", "group", use_llm=False)
+    assert not result["is_ready"]
+    assert any(item["kind"] in ("allergy", "exclusion") for item in result["unresolved_inputs"])
+
+
+def test_unitless_per_person_budget_is_unresolved():
+    result = parse_conditions("강남 4명, 1인당 2.5 이내", "group", use_llm=False)
+    assert not result["is_ready"]
+    assert any(item["kind"] == "budget" and "2.5" in item["text"] for item in result["unresolved_inputs"])
