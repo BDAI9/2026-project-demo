@@ -1,4 +1,0 @@
-﻿테스트명,유효여부,오류내용
-D_수용인원오류,False,"['capacity: 잘못된 숫자', 'capacity: 양의 정수만 허용']"
-E_좌표오류,False,['WGS84 좌표 범위 오류 (TM128을 위경도로 사용할 수 없음)']
-F_메뉴검증근거누락,False,['menu_verified=true라면 확인 근거(menu_evidence)가 필요']

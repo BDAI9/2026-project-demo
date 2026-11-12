@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>모임 장소 고르기</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="room-head">
+      <div>
+        <p class="eyebrow">모임 장소 고르기</p>
+        <h1 id="room-title">불러오는 중…</h1>
+      </div>
+      <div class="share">
+        <input id="share-link" readonly aria-label="공유 링크">
+        <button type="button" id="copy-link" class="ghost">링크 복사</button>
+      </div>
+    </header>
+    <p id="source-note" class="notice" hidden></p>
+
+    <div class="grid">
+      <section class="card" aria-labelledby="me-title">
+        <h2 id="me-title"><span class="num">1</span> 내 선호 체크</h2>
+        <form id="pref-form">
+          <label for="name">이름</label>
+          <input id="name" maxlength="20" required placeholder="예: 윤아">
+
+          <fieldset>
+            <legend>지역</legend>
+            <div id="regions" class="chips"></div>
+            <input id="region-custom" maxlength="40" placeholder="목록에 없으면 직접 입력 (예: 망원)">
+          </fieldset>
+
+          <fieldset>
+            <legend>어디 갈까요? <small>하나만</small></legend>
+            <div id="place-types" class="chips big"></div>
+          </fieldset>
+
+          <fieldset id="style-box" hidden>
+            <legend id="style-label">종류</legend>
+            <div id="styles" class="chips"></div>
+          </fieldset>
+
+          <fieldset>
+            <legend>1인 예산</legend>
+            <div id="budgets" class="chips"></div>
+          </fieldset>
+
+          <fieldset>
+            <legend>분위기 <small>최대 3개</small></legend>
+            <div id="atmospheres" class="chips"></div>
+          </fieldset>
+
+          <fieldset>
+            <legend>알레르기 <small>추천에서 위험한 곳은 빼요</small></legend>
+            <div id="allergies" class="chips warn"></div>
+            <input id="allergy-other" maxlength="40" placeholder="기타 알레르기 (예: 키위)">
+          </fieldset>
+
+          <button type="submit" id="save-button">저장하기</button>
+          <button type="button" id="leave-button" class="ghost" hidden>내 응답 삭제</button>
+          <p id="form-status" class="status" role="status"></p>
+        </form>
+      </section>
+
+      <div class="col">
+        <section class="card" aria-labelledby="who-title">
+          <h2 id="who-title"><span class="num">2</span> 모두의 선택 <small id="count"></small></h2>
+          <p class="hint">5초마다 자동으로 새로고침돼요.</p>
+          <ul id="people" class="people"></ul>
+          <div id="tallies"></div>
+        </section>
+
+        <section class="card" aria-labelledby="rec-title">
+          <h2 id="rec-title"><span class="num">3</span> 추천 받기</h2>
+          <div class="row">
+            <div><label for="rec-region">지역</label><select id="rec-region"></select></div>
+            <div><label for="rec-type">장소</label><select id="rec-type"></select></div>
+          </div>
+          <p class="hint">기본값은 가장 많이 고른 지역·장소예요.</p>
+          <button type="button" id="rec-button">추천 받기</button>
+          <p id="rec-status" class="status" role="status"></p>
+          <div id="rec-warnings"></div>
+          <ol id="results" class="results"></ol>
+          <details id="excluded-box" hidden>
+            <summary>알레르기 때문에 뺀 곳 <span id="excluded-count"></span></summary>
+            <ul id="excluded"></ul>
+          </details>
+          <p class="fine">가격대·분위기·알레르기 위험은 가게 이름과 업종으로 AI가 추정한 값이라 틀릴 수 있어요. 알레르기는 반드시 매장에 직접 확인하세요.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script src="/static/room.js"></script>
+</body>
+</html>
