@@ -1,4 +1,4 @@
-"""Compose ordered cafe/restaurant courses from independently evaluated places.
+"""Compose ordered two-stop courses from independently evaluated places.
 
 Distances are great-circle estimates, never walking routes. Inputs are evaluated
 from scratch on every call so a change or replacement cannot retain stale results.
@@ -101,8 +101,9 @@ def build_courses(
     excluded selection produces no courses, rather than silently replacing it.
     """
     ordered_stops = tuple(ordered_stops)
-    if len(ordered_stops) != 2 or sorted(ordered_stops) != ["cafe", "restaurant"]:
-        raise ValueError("ordered_stops must contain exactly one cafe and one restaurant")
+    if (len(ordered_stops) != 2 or any(category not in ("cafe", "restaurant", "bar") for category in ordered_stops)
+            or ordered_stops[0] == ordered_stops[1]):
+        raise ValueError("ordered_stops must contain two different cafe, restaurant or bar categories")
     if isinstance(limit, bool) or not isinstance(limit, int) or limit < 1:
         raise ValueError("limit must be a positive integer")
     for name, val in (("max_leg_distance_m", max_leg_distance_m),
